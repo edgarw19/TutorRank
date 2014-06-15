@@ -1,17 +1,20 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
-
+var bcrypt = require('bcrypt-nodejs');
 
 var User = new Schema({
-	email: String,
-	password: String
+	username: String,
+	password: String,
+
+
 	//{type: String, set :function(newValue) {
 		//return Hash.isHashed(newValue) ? newValue : Hash.generate(newValue);
 	}
 );
 
 User.plugin(passportLocalMongoose);
+
 
 /*UserSchema.statics.authenticate = function(email, password, callback) {
 	this.findOne({ email: email }, function(error, user) {
