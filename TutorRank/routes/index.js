@@ -12,16 +12,11 @@ router.get('/', function (req, res) {
 });
 
 router.get('/register', function(req, res) {
-  User.find({username : "bob"}, function(err, p){
-    if (err) console.log("didn't find bob");
-    var lolz = p.username;
-    console.log(p);
-    tester = p;
-    console.log(tester);
+  
   res.render('register', {info : "stuff", testuser : p});
 
 
-  });
+
 
 });
 
@@ -41,6 +36,12 @@ router.post('/register', function(req, res) {
 router.get('/login', function(req, res) {
   res.render('login', {});
 });
+
+router.post('/login', passport.authenticate('local', {
+  successRedirect : '/profile',
+  failureRedirect : '/login',
+  failureFlash : true
+}));
 
 router.get('/profile', isLoggedIn, function(req, res) {
   res.render('profile.ejs', {
@@ -85,16 +86,25 @@ router.post('/update/:id', function(req, res) {
 
 });
 
-router.post('/profile', function(req, res) {
+router.get('/search', function(req, res) {
+  res.render('search', {});
+});
+
+router.post('/search', function(req, res) {
+
+  User.find({username : "bob"}, function(err, p){
+    if (err) console.log("didn't find bob");
+    var lolz = p.username;
+    console.log(p);
+    tester = p;
+    console.log(tester);
+  res.render('searchresults', {info : "stuff", testuser : p});
+
+
+  });
 
 });
 
-
-router.post('/login', passport.authenticate('local', {
-  successRedirect : '/profile',
-  failureRedirect : '/login',
-  failureFlash : true
-}));
 
 router.get('/logout', function(req, res) {
   req.logout();
