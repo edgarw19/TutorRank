@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
 
 router.get('/register', function(req, res) {
   
-  res.render('register', {info : "stuff", testuser : p});
+  res.render('register', {info : });
 
 
 
@@ -86,23 +86,15 @@ router.post('/update/:id', function(req, res) {
 
 });
 
-router.get('/search', function(req, res) {
+router.get('/search', function(req, res) {      
   res.render('search', {});
 });
 
 router.post('/search', function(req, res) {
-
-  User.find({username : "bob"}, function(err, p){
-    if (err) console.log("didn't find bob");
-    var lolz = p.username;
-    console.log(p);
-    tester = p;
-    console.log(tester);
-  res.render('searchresults', {info : "stuff", testuser : p});
-
-
+  var university = req.body.university.toLowerCase();
+  User.find({education_key : { $regex: new RegExp("^" + university)}}, function(err, matching_users){
+    res.render('searchresults', {user_array : matching_users, school : req.body.university});
   });
-
 });
 
 

@@ -12,18 +12,13 @@
 	<div class="container">
 
 		<div class="page-header text-center">
-			<h1><span class="fa fa-anchor"></span> Search Page</h1>
-			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+			<h1><span class="fa fa-anchor"></span> Search Results for <%=school %></h1>
+			   <%for (var i = 0; i < user_array.length; i++) {%> 
+			   <h3><%= user_array[i].username %><br> <img src="<%=user_array[i].profilepic %>" width = 200 height = 200>  </h3><br>
+			   <%} %>
+
 		</div>
 
-		<form action="/search" method="post">
-			<div class="form-group">
-				<label>Search by University</label>
-				<input type="text" class="form-control" name="university">
-			</div>
-
-			<button type="submit" class="btn btn-warning btn-lg">Search</button>
-		</form>
 
 	</div>
 </body>
