@@ -12,16 +12,17 @@ router.get('/', function (req, res) {
 });
 
 router.get('/register', function(req, res) {
-  
-  res.render('register', {info : });
 
-
-
+  res.render('register', {info:"stuff"});
 
 });
 
 
 router.post('/register', function(req, res) {
+  console.log((req.body.password).length);
+  if((req.body.password).length < 4){
+    return res.render("register", {info: "Get a longer password"});
+  }
   User.register(new User({ username : req.body.username }), req.body.password, function(err, account) {
     if (err) {
       return res.render("register", {info: "Sorry. That username already exists. Try again."});
@@ -62,7 +63,6 @@ router.post('/update/:id', function(req, res) {
   var aboutme = req.body.whoami;
   var school = req.body.education;
   var year = req.body.graduation;
-  console.log(req.body.whoami);
   User.findById(req.params.id,function(err, userup){
     if (!userup)
       return next(new Error("Couldn't load user"));
@@ -86,6 +86,7 @@ router.post('/update/:id', function(req, res) {
 
 });
 
+
 router.get('/search', function(req, res) {      
   res.render('search', {});
 });
@@ -96,6 +97,8 @@ router.post('/search', function(req, res) {
     res.render('searchresults', {user_array : matching_users, school : req.body.university});
   });
 });
+
+
 
 
 router.get('/logout', function(req, res) {
