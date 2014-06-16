@@ -7,44 +7,36 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
+
     <title>Sign Up</title>
-    <h1> <%if (testuser) {%> <%= testuser[0].username %> <%} %></h1>
-    <%=info %>
 
     <!-- Bootstrap core CSS -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/stylesheets/css/signin.css" rel="stylesheet">
-
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-
-  <title></title>
 </head>
 
 <body>
     <div class="container">
-      <form class="form-signin">
+      <form class = "form-signin" role="form" action="/register" method="post">
         <h2 class="form-signin-heading">Register Here!</h2>
-        <input type="text" class="input-block-level" placeholder="Username" class="form-control">
-        <input type="password" class="input-block-level" placeholder="Password" class="form-control">
+          <div class="form-group">
+        <input type="text" name = "username" class="input-block-level" placeholder="username" class="form-control">
+         </div>
+          <div class="form-group">
+        <input type="password" name = "password" class="input-block-level" placeholder="password" class="form-control">
+         </div>
         <!--<label class="checkbox">
           <input type="checkbox" value="remember-me"> 
         </label> -->
-        <button class="btn btn-large btn-default" type="submit">Register</button>
-        <a href="/"> <button type="button" class="btn btn-primary">Cancel</button></a>
-        <a href="/">
-      </form>
 
+         <p><%=info%></p> 
+
+        <button class="btn btn-large btn-default" type="submit" >Register</button>
+        <a href="/"> <button type="button" class="btn btn-primary">Cancel</button></a>
+      </form>
     </div> <!-- /container -->
 
     <!-- Le javascript

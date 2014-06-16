@@ -12,16 +12,15 @@ router.get('/', function (req, res) {
 });
 
 router.get('/register', function(req, res) {
-  
-  res.render('register', {info : "stuff", testuser : p});
-
-
-
-
+  res.render('register', {info:"stuff"});
 });
 
 
 router.post('/register', function(req, res) {
+  console.log((req.body.password).length);
+  if((req.body.password).length < 4){
+    return res.render("register", {info: "Get a longer password"});
+  }
   User.register(new User({ username : req.body.username }), req.body.password, function(err, account) {
     if (err) {
       return res.render("register", {info: "Sorry. That username already exists. Try again."});
@@ -62,7 +61,6 @@ router.post('/update/:id', function(req, res) {
   var aboutme = req.body.whoami;
   var school = req.body.education;
   var year = req.body.graduation;
-  console.log(req.body.whoami);
   User.findById(req.params.id,function(err, userup){
     if (!userup)
       return next(new Error("Couldn't load user"));
@@ -86,24 +84,24 @@ router.post('/update/:id', function(req, res) {
 
 });
 
-router.get('/search', function(req, res) {
-  res.render('search', {});
-});
+// router.get('/search', function(req, res) {
+//   res.render('search', {});
+// });
 
-router.post('/search', function(req, res) {
+// router.post('/search', function(req, res) {
 
-  User.find({username : "bob"}, function(err, p){
-    if (err) console.log("didn't find bob");
-    var lolz = p.username;
-    console.log(p);
-    tester = p;
-    console.log(tester);
-  res.render('searchresults', {info : "stuff", testuser : p});
+//   User.find({username : "bob"}, function(err, p){
+//     if (err) console.log("didn't find bob");
+//     var lolz = p.username;
+//     console.log(p);
+//     tester = p;
+//     console.log(tester);
+//   res.render('searchresults', {info : "stuff", testuser : p});
 
 
-  });
+//   });
 
-});
+// });
 
 
 router.get('/logout', function(req, res) {
