@@ -21,23 +21,21 @@
 			<!-- LOCAL INFORMATION -->
 			
 
-			<form action="/profile" method="post">
-				<div class="form-group">
-					<label>Username</label>
-					<input type="text" class="form-control" name="username">
-				</div>
+			<form action="/update/<%=user._id %>" method="post">
 				<div class="form-group">
 				<h2> Pick a type of profile</h2>
-					<input type="radio" class="form-control" name="type" value="true">Tutor<br>
-					<input type="radio" class="form-control" name="type" value="false">Student
+					<input type="radio" class="form-control" name="prof_type" value="true" <%if (user.prof_type) { %>checked = "checked"<% } %>
+					>Tutor<br>
+					<input type="radio" class="form-control" name="prof_type" value="false"<%if (!user.prof_type) { %>checked = "checked"<% } %>
+					>Student
 				</div>
 				<div class="form-group">
 					<label>Link to profile picture</label>
-					<input type="text" class="form-control" name="profilepic">
+					<input type="text" class="form-control" name="profilepic" value="<%=user.profilepic %>">
 				</div>
 				<div class="form-group">
 					<label>About me</label>
-					<textarea name="whoami" class="form-control">Enter text here </textarea>
+					<textarea name="whoami" class="form-control" value="<%= user.whoami %>"></textarea>
 				</div>
 
 				<button type="submit" class="btn btn-warning btn-lg">Update</button>
