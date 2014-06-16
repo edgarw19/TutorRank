@@ -6,12 +6,16 @@ var bcrypt = require('bcrypt-nodejs');
 var User = new Schema({
 	username: String,
 	password: String,
-
+	prof_type: Boolean,
+	whoami: String,
+	categories: [String],
+	profilepic: String
 
 	//{type: String, set :function(newValue) {
 		//return Hash.isHashed(newValue) ? newValue : Hash.generate(newValue);
 	}
 );
+
 
 User.plugin(passportLocalMongoose);
 
