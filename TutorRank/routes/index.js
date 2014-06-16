@@ -8,17 +8,23 @@ var User = require('../models/user');
 
 router.get('/', function (req, res) {
   res.render('index', { user : req.user, title: "blah" });
+
 });
 
-<<<<<<< HEAD
-  router.get('/register', function(req, res) {
-      res.render('register', {info : "stuff"});
-  });
-=======
 router.get('/register', function(req, res) {
-  res.render('register', {info : "stuff"});
+  User.find({username : "bob"}, function(err, p){
+    if (err) console.log("didn't find bob");
+    var lolz = p.username;
+    console.log(p);
+    tester = p;
+    console.log(tester);
+  res.render('register', {info : "stuff", testuser : p});
+
+
+  });
+
 });
->>>>>>> 139e456a5e105f419b95da003563ce7629aa6f6a
+
 
 router.post('/register', function(req, res) {
   User.register(new User({ username : req.body.username }), req.body.password, function(err, account) {
@@ -50,12 +56,11 @@ router.get('/update', isLoggedIn, function(req, res) {
 });
 
 router.post('/update/:id', function(req, res) {
-  console.log(req.body.prof_type);
-  console.log(req.body.profilepic);
-  console.log(req.body.whoami);
   var profile_type = req.body.prof_type;
   var pic = req.body.profilepic;
   var aboutme = req.body.whoami;
+  var school = req.body.education;
+  var year = req.body.graduation;
   console.log(req.body.whoami);
   User.findById(req.params.id,function(err, userup){
     if (!userup)
@@ -64,6 +69,9 @@ router.post('/update/:id', function(req, res) {
       userup.prof_type = profile_type;
       userup.profilepic = pic;
       userup.whoami = aboutme;
+      userup.education = school;
+      userup.graduation = year;
+      userup.education_key = school.toLowerCase();
       userup.save(function(err) {
         if (err)
           console.log('error on update');
@@ -72,7 +80,8 @@ router.post('/update/:id', function(req, res) {
       });
     }
   });
-    res.redirect('/profile');
+  res.redirect('/profile');
+
 
 });
 

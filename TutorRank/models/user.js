@@ -9,7 +9,14 @@ var User = new Schema({
 	prof_type: Boolean,
 	whoami: String,
 	categories: [String],
-	profilepic: String
+	profilepic: String,
+	education: String,
+	education_key: String,
+	graduation: Number
+
+	//add into the model update field in update
+	//add into profile views
+
 
 	//{type: String, set :function(newValue) {
 		//return Hash.isHashed(newValue) ? newValue : Hash.generate(newValue);
@@ -18,6 +25,7 @@ var User = new Schema({
 
 
 User.plugin(passportLocalMongoose);
+
 
 
 /*UserSchema.statics.authenticate = function(email, password, callback) {

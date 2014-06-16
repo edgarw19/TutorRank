@@ -11,7 +11,11 @@ var PassportLocalStrategy = require('passport-local').Strategy;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
 var User = require('./models/user.js');
+
+
+
 
 
 var app = express();
@@ -46,6 +50,16 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 mongoose.connect('mongodb://localhost/tutorrank');
+
+var tester = User.find({username : "bob"}, function(err, p){
+    if (err) console.log("didn't find bob");
+    var lolz = p.username;
+    console.log(p);
+    console.log(lolz);
+    return p;
+
+
+});
 
 
 /// catch 404 and forwarding to error handler

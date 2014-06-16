@@ -34,8 +34,16 @@
 					<input type="text" class="form-control" name="profilepic" value="<%=user.profilepic %>">
 				</div>
 				<div class="form-group">
+					<label>University</label>
+					<input type="text" class="form-control" name="education" value="<%=user.education %>">
+				</div>
+				<div class="form-group">
+					<label>Graduation Year</label>
+					<input type="number" class="form-control" min="1970" max="2020" name="graduation" value="<%=user.graduation %>">
+				</div>
+				<div class="form-group">
 					<label>About me</label>
-					<textarea name="whoami" class="form-control" value="<%= user.whoami %>"></textarea>
+					<textarea name="whoami" class="form-control"><%=user.whoami %></textarea>
 				</div>
 
 				<button type="submit" class="btn btn-warning btn-lg">Update</button>
