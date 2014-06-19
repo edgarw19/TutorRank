@@ -7,6 +7,28 @@
 	<style>
 		body 		{ padding-top:80px; word-wrap:break-word; }
 	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+		$("document").ready(function(){
+			var lag = 0;
+
+			$("#categorysearch").click(function(){
+				var insert = '<div class="form-group"><label id="toggle1">Categories</label>' +
+             		'<input type="text" class="form-control" name="categorysearch" id ="toggle"' +
+             		'></div>';
+
+             	if (lag == 0) {
+				$("#submitted").before(insert);
+				lag++;
+			}
+				else{
+					$("#toggle").toggle();
+					$("#toggle1").toggle();
+				}
+
+			});
+		});
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -21,8 +43,9 @@
 				<label>Search by University</label>
 				<input type="text" class="form-control" name="university">
 			</div>
+			<a href="#" id="categorysearch">Advanced Search</a>
 
-			<button type="submit" class="btn btn-warning btn-lg">Search</button>
+			<button type="submit" class="btn btn-warning btn-lg" id="submitted">Search</button>
 		</form>
 
 	</div>

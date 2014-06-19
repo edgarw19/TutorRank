@@ -59,6 +59,20 @@ router.get('/update', isLoggedIn, function(req, res) {
 
 router.post('/update/:id', function(req, res) {
   var profile_type = req.body.prof_type;
+  var category_fields = req.body.increment;
+  console.log("The number of fields is " + category_fields);
+  var category_holder = [];
+  var category_holder_key = [];
+  console.log(category_holder);
+  for (var i = 0; i < category_fields; i++) {
+    var itemtopush = req.body['category'+i];
+    console.log("The number item is" + i + "the item itself is" + itemtopush);
+    var category_number = itemtopush;
+    if (category_number) {
+      category_holder.push(category_number);
+      category_holder_key.push(category_number.toLowerCase());
+    }
+  }
   var pic = req.body.profilepic;
   var aboutme = req.body.whoami;
   var school = req.body.education;
@@ -73,6 +87,8 @@ router.post('/update/:id', function(req, res) {
       userup.education = school;
       userup.graduation = year;
       userup.education_key = school.toLowerCase();
+      userup.categories = category_holder;
+      userup.categories_key = category_holder_key;
       userup.save(function(err) {
         if (err)
           console.log('error on update');
@@ -93,30 +109,40 @@ router.get('/search', function(req, res) {
 
 router.post('/search', function(req, res) {
   var university = req.body.university.toLowerCase();
-  User.find({education_key : { $regex: new RegExp("^" + university)}}, function(err, matching_users){
-    res.render('searchresults', {user_array : matching_users, school : req.body.university});
-  });
+  var categorysearch = req.body.categorysearch;
+  if (categorysearch) {
+    var categorysearch = categorysearch.toLowerCase();
+    User.find({categories: {$regex: new RegExp("^" + categorysearch)}, education_key : { $regex: new RegExp("^" + university)}}, function(err, matching_users) {
+      res.render('searchresults', {user_array: matching_users, school : req.body.university, categorysearch: req.body.categorysearch});
+    });
+  }
+  else {
+    User.find({education_key : { $regex: new RegExp("^" + university)}}, function(err, matching_users){
+      res.render('searchresults', {user_array : matching_users, school : req.body.university});
+    });
+  }
 });
 
 
 
 
-router.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
-});
 
-router.get('/ping', function(req, res){
-  res.send("pong!", 200);
-});
+    router.get('/logout', function(req, res) {
+      req.logout();
+      res.redirect('/');
+    });
 
-function isLoggedIn(req, res, next) {
+    router.get('/ping', function(req, res){
+      res.send("pong!", 200);
+    });
 
-  if (req.isAuthenticated())
-    return next();
-  res.redirect('/');
-};
+    function isLoggedIn(req, res, next) {
+
+      if (req.isAuthenticated())
+        return next();
+      res.redirect('/');
+    };
 
 
 
-module.exports = router;
+    module.exports = router;

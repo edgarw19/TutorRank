@@ -35,7 +35,11 @@
 								Student
 						<% } %><br>
 						<strong>University: </strong><%=user.education %><br>
-						<strong>Graduation Year: </strong><%=user.graduation %>
+						<strong>Graduation Year: </strong><%=user.graduation %><br>
+						<strong>Categories interested in</strong> 
+						<%for (var i = 0; i < user.categories.length; i++) { %>
+						<%= user.categories[i].toString() %>
+						<% } %>
 
 
 	
